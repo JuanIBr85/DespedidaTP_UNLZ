@@ -1,0 +1,6 @@
+@GestorDespedidasDeSoltero_HostAddress = http://localhost:5078
+
+GET {{GestorDespedidasDeSoltero_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

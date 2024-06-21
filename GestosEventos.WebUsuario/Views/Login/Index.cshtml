@@ -1,0 +1,75 @@
+﻿﻿@{
+    Layout = "";
+}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla de Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+
+        .login-container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .login-container img {
+                width: 100px;
+                margin-bottom: 20px;
+            }
+
+            .login-container h1 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #343a40;
+            }
+
+        .google-btn {
+            background: #4285f4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+            .google-btn img {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+
+            .google-btn:hover {
+                background: #357ae8;
+            }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="img/logo-solterout.png" alt="Logo" style="width:auto; height: auto">
+        
+<!--        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" style="width: auto" />
+    -->    
+        <a class="google-btn" asp-controller="Login" asp-action="Login">
+            Iniciar sesión con Google
+        </a>
+    </div>
+ 
+</body>
+</html>
