@@ -18,7 +18,12 @@ namespace GestorEventos.Servicios.Servicios
         bool BorradoLogicoEvento(int IdEvento);
         bool ModificarEvento(int IdEvento, Evento evento);
         IEnumerable<Evento> ObtenerEventos();
+        IEnumerable<EventoViewModel> ObtenerEventosViewModel();
+        public IEnumerable<EventoViewModel> ObtenerMisEventos(int IdUsuario);
         Evento ObtenerEventosId(int IdEvento);
+
+        //bool PutNuevoEvento(int idEvento, Eventos eventos);
+        bool CambiarEstadoEvento(int IdEvento, int IdEstado);
     }
 
     public class ServicioEventos : IServicioEventos
@@ -43,6 +48,52 @@ namespace GestorEventos.Servicios.Servicios
             }
         }
 
+        public IEnumerable<EventoViewModel> ObtenerMisEventos(int IdUsuario)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                List<EventoViewModel> evento = db.Query<EventoViewModel>(@"
+                            SELECT eventos.*, 
+                            EstadosEventos.Descripcion AS EstadoEvento,
+                            personas.Nombre AS NombrePersonaAgasajada,
+                            tiposeventos.Descripcion AS TipoEvento,
+                            Usuarios.NombreCompleto AS NombreUsuario
+                            FROM eventos
+                            LEFT JOIN EstadosEventos ON EstadosEventos.IdEstadoEvento = eventos.IdEstadoEvento
+                            LEFT JOIN personas ON personas.IdPersona = eventos.IdPersonaAgasajada
+                            LEFT JOIN tiposeventos ON tiposeventos.IdTipoEvento = eventos.IdTipoEvento
+                            LEFT JOIN Usuarios ON Usuarios.IdUsuario = eventos.IdUsuario
+                            WHERE eventos.IdUsuario = @IdUsuario",
+                            new { IdUsuario = IdUsuario })
+                            .ToList();
+
+                //List<EventoViewModel> eventos = db.Query<EventoViewModel>("SELECT Eventos.*, EstadoEventos.Descripcion EstadoEvento FROM Eventos LEFT JOIN EstadoEventos ON EstadoEventos.IdEstadoEvento = Eventos.idEstadoEvento WHERE Eventos.IdUsuario =" + idUsuario.ToString()).ToList();
+                return evento;
+            }
+
+        }
+
+        public IEnumerable<EventoViewModel> ObtenerEventosViewModel()
+        {
+            // using (MySqlConnection db = new MySqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                List<EventoViewModel> evento = db.Query<EventoViewModel>("SELECT eventos.*," +
+                        "EstadosEventos.Descripcion AS EstadoEvento," +
+                        "personas.Nombre AS NombrePersonaAgasajada," +
+                        "tiposeventos.Descripcion AS TipoEvento," +
+                        "Usuarios.NombreCompleto AS NombreUsuario " +
+                        "FROM eventos " +
+                        "LEFT JOIN EstadosEventos ON EstadosEventos.IdEstadoEvento = eventos.IdEstadoEvento " +
+                        "LEFT JOIN personas ON personas.IdPersona = eventos.IdPersonaAgasajada " +
+                        "LEFT JOIN tiposeventos ON tiposeventos.IdTipoEvento = eventos.IdTipoEvento " +
+                        "LEFT JOIN Usuarios ON Usuarios.IdUsuario = eventos.IdUsuario").ToList();
+
+                //List<EventoViewModel> evento = db.Query<EventoViewModel>("select eventos. *, EstadosEventos.Descripcion EstadoEvento from eventos left join EstadosEventos on EstadosEventos.IdEstadoEvento = eventos.IdEstadoEvento").ToList();
+                return evento;
+            }
+        }
+
         public Evento ObtenerEventosId(int IdEvento)
         {
             // using (MySqlConnection db = new MySqlConnection(_connectionString))
@@ -58,8 +109,9 @@ namespace GestorEventos.Servicios.Servicios
             // using (MySqlConnection db = new MySqlConnection(_connectionString))
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO eventos (NombreEvento,FechaEvento,CantidadPersonas,IdPersonaAgasajada,IdUsuario,IdTipoEvento,IdEstadoEvento) VALUES (@NombreEvento,@FechaEvento,@CantidadPersonas,@IdPersonaAgasajada,@IdUsuario,@IdTipoEvento,@IdEstadoEvento)";
-                db.Execute(query, evento);
+                string query = "INSERT INTO eventos (NombreEvento,FechaEvento,CantidadPersonas,IdPersonaAgasajada,IdUsuario,IdTipoEvento,IdEstadoEvento) VALUES (@NombreEvento,@FechaEvento,@CantidadPersonas,@IdPersonaAgasajada,@IdUsuario,@IdTipoEvento,@IdEstadoEvento)" + "select  CAST(SCOPE_IDENTITY() AS INT) ";
+                evento.IdEvento = db.QuerySingle<int>(query, evento);
+
                 return evento.IdEvento;
             }
         }
@@ -72,7 +124,7 @@ namespace GestorEventos.Servicios.Servicios
                 string query = "UPDATE eventos SET NombreEvento= @NombreEvento,FechaEvento=@FechaEvento,CantPersonas=@CantPersonas,IdUsuario=@IdUsuario,IdPersonaContacto=@IdPersonaContacto,IdTipoDespedida=@IdTipoDespedida,IdEstadoEvento=@IdEstadoEvento WHERE IdEvento = " + IdEvento.ToString();
                 db.Execute(query, evento);
                 return true;
-            } 
+            }
         }
 
         public bool BorradoLogicoEvento(int IdEvento)
@@ -85,17 +137,41 @@ namespace GestorEventos.Servicios.Servicios
                 return true;
             }
         }
-        /*
-        public bool BorradoFisicoEvento(int IdEvento)
-        {
-            // using (MySqlConnection db = new MySqlConnection(_connectionString))
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                string query = "" + IdEvento.ToString();
-                db.Execute(query);
-                return true;
-            }
-        }*/
 
-    }
+        public bool CambiarEstadoEvento(int IdEvento, int IdEstadoEvento)
+        {
+            try
+            {
+                using (IDbConnection db = new SqlConnection(_connectionString))
+                {
+                    string query = "UPDATE Eventos SET IdEstadoEvento = " + IdEstadoEvento.ToString() + " WHERE IdEvento = " + IdEvento.ToString();
+
+
+                    db.Execute(query);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Loguear el error
+                // Console.WriteLine(ex.Message);
+
+                return false;
+            }
+
+            /*
+            public bool BorradoFisicoEvento(int IdEvento)
+            {
+                // using (MySqlConnection db = new MySqlConnection(_connectionString))
+                using (IDbConnection db = new SqlConnection(_connectionString))
+                {
+                    string query = "" + IdEvento.ToString();
+                    db.Execute(query);
+                    return true;
+                }
+            }*/
+
+        }
+    } 
 }

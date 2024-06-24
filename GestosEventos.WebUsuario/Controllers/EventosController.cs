@@ -13,34 +13,80 @@ namespace GestosEventos.WebUsuario.Controllers
         private IServicioEventos eventoService;
         private IServicioPersonas personaService;
         private IServicioDeServicios servicioService;
-        //private IEventosServiciosService eventosServiciosService;
+        private IEventosServiciosService eventosServiciosService;
 
-        public EventosController(IServicioEventos _eventoService, IServicioPersonas _personaService, IServicioDeServicios _servicioService)
+        public EventosController(IServicioEventos _eventoService, IServicioPersonas _personaService, IServicioDeServicios _servicioService, IEventosServiciosService _eventosServiciosService)
         {
            this.eventoService = _eventoService;
             this.personaService = _personaService;
             this.servicioService = _servicioService;
-           // this.eventosServiciosService = _eventosServiciosService;
+           this.eventosServiciosService = _eventosServiciosService;
         }
         // GET: EventosController
         public ActionResult Index()
         {
+            int IdUsuario = int.Parse(
+             HttpContext.User.Claims.First(x => x.Type == "usuarioSolterout").Value);
+
             ServicioEventos servicioEventos = new ServicioEventos();
             //servicioEventos.ObtenerEventos();
             
-            return View(servicioEventos.ObtenerEventos());
+            return View(servicioEventos.ObtenerMisEventos(IdUsuario));
         }
 
         // GET: EventosController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            int idUsuario;
+            try
+            {
+                idUsuario = int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioSolterout").Value);
+            }
+            catch (Exception ex)
+            {
+                // Manejar el error adecuadamente
+                return BadRequest("Usuario no válido.");
+            }
+
+            var evento = this.eventoService.ObtenerMisEventos(idUsuario).FirstOrDefault(x => x.IdEvento == id);
+            if (evento == null)
+            {
+                // Manejar el caso donde el evento no se encuentra
+                return NotFound("Evento no encontrado.");
+            }
+
+            var listaServiciosDisponibles = this.servicioService.ObtenerServicios();
+            var listaIdServiciosContratados = this.eventosServiciosService.GetServiciosPorEvento(evento.IdEvento);
+            List<Servicio> listaServicios = new List<Servicio>();
+
+            foreach (var servicio in listaIdServiciosContratados)
+            {
+                var servicioContratado = listaServiciosDisponibles.FirstOrDefault(x => x.IdServicio == servicio.IdServicio);
+                if (servicioContratado != null)
+                {
+                    listaServicios.Add(servicioContratado);
+                }
+                else
+                {
+                    // Manejar el caso donde el servicio contratado no se encuentra en la lista de servicios disponibles
+                    // Podrías registrar un mensaje de error o manejarlo según sea necesario
+                }
+            }
+
+
+            ViewData["ListaServicios"] = listaServicios;
+
+            return View(evento);
         }
 
         // GET: EventosController/Create
         public ActionResult Create()
         {
-            return View();
+            var evento = new EventoModel();
+            evento.ListaDeServiciosDisponibles = this.servicioService.ObtenerServicios();
+
+            return View(evento);
+
         }
 
         // POST: EventosController/Create
@@ -77,7 +123,7 @@ namespace GestosEventos.WebUsuario.Controllers
                     // Manejar error o asignar un valor predeterminado
                     throw new ArgumentException("CantidadPersonas es nulo o no válido.");
                 }
-                eventoNuevo.IdUsuario = 4; // HTTPContext.User.Identity.Id; reemplaza a IdPersonaAgasajada en entidad evento.
+                eventoNuevo.IdUsuario = int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioSolterout").Value); // HTTPContext.User.Identity.Id reemplaza a IdPersonaAgasajada en entidad evento.
                 /*var userId = HttpContext.User?.Identity?.GetUserId<int>();
                 if (userId != null)
                 {
@@ -121,7 +167,30 @@ namespace GestosEventos.WebUsuario.Controllers
                 
                 eventoNuevo.IdEstadoEvento = 1; // Pendiente de aprobacion.
 
-                this.eventoService.AgregarEvento(eventoNuevo);
+
+                 int IdEventoNuevo = this.eventoService.AgregarEvento(eventoNuevo);
+
+                // Verificar si collection["ServiciosVM"] tiene elementos
+                var serviciosVM = collection["ServiciosVM"];
+                if (serviciosVM.Any())
+                {
+                    foreach (var idServicio in serviciosVM)
+                    {
+                        EventosServicios relacionEventoServicio = new EventosServicios();
+                        relacionEventoServicio.IdEvento = IdEventoNuevo;
+                        relacionEventoServicio.IdServicio = int.Parse(idServicio.ToString());
+                        relacionEventoServicio.Borrado = false;
+
+                        this.eventosServiciosService.PostNuevoEventoServicio(relacionEventoServicio);
+                    }
+                }
+                else
+                {
+                    // Mensaje de depuración
+                    System.Diagnostics.Debug.WriteLine("ServiciosVM está vacío o no contiene elementos.");
+                }
+
+
 
                 return RedirectToAction(nameof(Index));
             }

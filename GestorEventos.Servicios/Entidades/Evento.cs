@@ -37,6 +37,17 @@ namespace GestorEventos.Servicios.Entidades
         public string DireccionDepartamento { get; set; }
         public string DireccionCodPostal { get; set; }
         public bool Borrado { get; set; }
+        public IEnumerable<EventosServicios> ListaDeServiciosContratados { get; set; }
+        public IEnumerable<Servicio> ListaDeServiciosDisponibles { get; set; }
 
     }
+
+    public class EventoViewModel : Evento // hereda de evento
+    {
+        public string EstadoEvento { get; set; }
+        public string NombrePersonaAgasajada { get; set; }
+        public string TipoEvento { get; set; }
+        public string NombreUsuario { get; set; }
+    }
+
 }

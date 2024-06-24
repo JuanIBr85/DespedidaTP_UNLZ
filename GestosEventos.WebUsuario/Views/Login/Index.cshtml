@@ -1,6 +1,7 @@
-﻿﻿@{
-    Layout = "";
+﻿@{
+    Layout = null;
 }
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -36,7 +37,7 @@
                 color: #343a40;
             }
 
-        .google-btn {
+        .google-btn, .logout-btn {
             background: #4285f4;
             color: white;
             padding: 10px 20px;
@@ -47,29 +48,49 @@
             display: inline-flex;
             align-items: center;
             transition: background 0.3s;
+            text-decoration: none; /* To remove the underline */
+            margin-top: 10px; /* Space between buttons */
         }
 
-            .google-btn img {
+            .google-btn img, .logout-btn img {
                 width: 20px;
                 height: 20px;
                 margin-right: 10px;
             }
 
-            .google-btn:hover {
+            .google-btn:hover, .logout-btn:hover {
                 background: #357ae8;
             }
+
+        .welcome-message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #343a40;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <img src="img/logo-solterout.png" alt="Logo" style="width:auto; height: auto">
-        
-<!--        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" style="width: auto" />
-    -->    
-        <a class="google-btn" asp-controller="Login" asp-action="Login">
-            Iniciar sesión con Google
-        </a>
+        <img src="~/img/logo-solterout.png" alt="Logo">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="welcome-message">
+                <span>Bienvenido, @User.Identity.Name</span>
+            </div>
+            <a class="logout-btn" asp-controller="Login" asp-action="Logout">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Icon_SignOut.svg/512px-Icon_SignOut.svg.png" alt="Logout Icon">
+                Cerrar sesión
+            </a>
+        }
+        else
+        {
+            <a class="google-btn" asp-controller="Login" asp-action="Login">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google Logo">
+                Iniciar sesión con Google
+            </a>
+        }
     </div>
- 
 </body>
 </html>
+

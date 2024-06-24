@@ -13,7 +13,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <h2>Crear un nuevo evento - ingresar la informacion solicitada</h2>
+            <h2>Crear un nuevo evento</h2>
 
             <div class="form-group">
                 <input asp-for="IdEvento" class="form-control" type = "hidden" value="0"/>
@@ -108,6 +108,37 @@
                     <input asp-for="IdEstadoEvento" class="form-control" type="hidden" value="1" />
                 </label>
             </div><br />
+            <h2>Servicios a contratar</h2>
+            <table>
+
+                <thead>
+                <th></th>
+                <th>Servicios</th>
+                <th>Precio ($ARG)</th>
+                </thead>
+                <tbody>
+
+                    @foreach (var servicios in Model.ListaDeServiciosDisponibles)
+                    {
+
+                        <tr>
+                            <td>
+
+                                <input type="checkbox" name="ServiciosVM" value="@servicios.IdServicio" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => servicios.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => servicios.PrecioServicio)
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table><br />
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

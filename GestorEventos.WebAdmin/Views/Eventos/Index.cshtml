@@ -1,0 +1,114 @@
+﻿ @model IEnumerable<GestorEventos.Servicios.Entidades.EventoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombrePersonaAgasajada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadPersonas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreUsuario)
+            </th>
+          @*   <th>
+                @Html.DisplayNameFor(model => model.IdTipoEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPersonaAgasajada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEstadoEvento)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoEvento)
+            </th>
+           @* <th>
+                @Html.DisplayNameFor(model => model.Borrado)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombrePersonaAgasajada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CantidadPersonas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreUsuario)
+                </td>
+            @*  <td>
+                    @Html.DisplayFor(modelItem => item.IdTipoEvento)
+              </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPersonaAgasajada)
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdUsuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdEstadoEvento)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoEvento)
+                </td>
+             @* <td>
+                    @Html.DisplayFor(modelItem => item.Borrado)
+                </td> *@
+                <td>
+                    <form asp-action="AprobarEvento">
+                        <input type="hidden" name="idEvento" value="@item.IdEvento" id="idEvento" />
+                        <input type="submit" value="Aprobar" />
+                    </form>
+
+
+                    <form asp-action="RechazarEvento">
+                        <input type="hidden" name="idEvento" value="@item.IdEvento" id="idEvento" />
+                        <input type="submit" value="Rechazar" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

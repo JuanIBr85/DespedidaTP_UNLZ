@@ -6,3 +6,12 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <br />
+    <h3>Bienvenido @User.Identity.Name </h3>
+    <h3>@ViewData["AccessToken"]</h3>
+    <br />
+
+    <a asp-controller="Login" asp-action="Logout">Logout</a>
+}

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestorEventos.Servicios.Entidades.Evento>
+﻿@model IEnumerable<GestorEventos.Servicios.Entidades.EventoViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,9 +13,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+           @*<th>
                 @Html.DisplayNameFor(model => model.IdEvento)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.NombreEvento)
             </th>
@@ -26,6 +26,12 @@
                 @Html.DisplayNameFor(model => model.CantidadPersonas)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.TipoEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombrePersonaAgasajada)
+            </th>
+           @* <th>
                 @Html.DisplayNameFor(model => model.IdTipoEvento)
             </th>
             <th>
@@ -36,16 +42,16 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Borrado)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.IdEvento)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.NombreEvento)
              </td>
@@ -55,7 +61,13 @@
            <td>
                @Html.DisplayFor(modelItem => item.CantidadPersonas)
             </td>
-            <td>
+              <td>
+                   @Html.DisplayFor(modelItem => item.TipoEvento)
+              </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombrePersonaAgasajada)
+                </td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.IdTipoEvento)
             </td>
             <td>
@@ -67,11 +79,11 @@
 
             <td>
                 @Html.DisplayFor(modelItem => item.Borrado)
-            </td>
+            </td>*@
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+               @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Details", "Details", new {  id=item.IdEvento })
+               @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
             </td>
         </tr>
 }

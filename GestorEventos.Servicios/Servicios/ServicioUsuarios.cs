@@ -3,74 +3,81 @@ using GestorEventos.Servicios.Entidades;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestorEventos.Servicios.Servicios
 {
     public interface IServicioUsuarios
     {
-        bool RegistrarUsuario(Usuario usuario);
-        string ValidarUsuario(string nombre_usuario, string clave_usuario);
+        public IEnumerable<Usuario> GetUsuarios();
+        public Usuario GetUsuarioPorId(int IdUsuario);
+        public Usuario GetUsuarioPorGoogleSubject(string googleSubject);
+        public int AgregarNuevoUsuario(Usuario usuario);
+
     }
 
-    /*public class ServicioUsuarios : IServicioUsuarios
+    public class ServicioUsuarios : IServicioUsuarios
     {
 
         private string _connectionString;
 
         public ServicioUsuarios()
         {
-            _connectionString = "Server=localhost;Database=db_py_unlz;Uid=root;Pwd=admin;";
+            _connectionString = "Password=Jimifloyd_22;Persist Security Info=True;User ID=Administrrador;Initial Catalog=DespedidaDeSolteros-DB;Data Source=despedidadesolteros-server.database.windows.net";
         }
 
-        public string ValidarUsuario(string nombre_usuario, string clave_usuario)
+        public IEnumerable<Usuario> GetUsuarios()
         {
-            using (MySqlConnection db = new MySqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                List<Usuario> usuario = db.Query<Usuario>("SELECT * FROM usuarios WHERE Nombre LIKE '" + nombre_usuario + "' AND Clave LIKE '" + clave_usuario + "'").ToList();
-                
-                if (usuario.Count == 0)
-                {
-                    return "Usuario Inexistente";
-                }
-                else
-                {
-                    if (usuario[0].tipo_usuario)
-                    {
-                        return "Administrador";
-                    }
-                    else
-                    {
-                        return "Usuario";
-                    }
-                   
-                }
+                List<Usuario> usuarios = db.Query<Usuario>("SELECT * FROM Usuarios").ToList();
+
+                return usuarios;
+
             }
+
+            //			return PersonasDePrueba;
         }
 
-        public bool RegistrarUsuario(Usuario usuario)
+        public Usuario GetUsuarioPorId(int IdUsuario)
         {
 
-            string resultado = ValidarUsuario(usuario.nombre_usuario, usuario.clave_usuario);
-
-            if (resultado == "Usuario Inexistente")
+            using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                return false;
+                Usuario usuarios = db.Query<Usuario>("SELECT * FROM Usuarios WHERE IdUsuario = " + IdUsuario.ToString()).FirstOrDefault();
+
+                return usuarios;
             }
 
-            else
-            {
-                using (MySqlConnection db = new MySqlConnection(_connectionString))
-                {
-                    string query = "INSERT INTO usuarios(Nombre, Clave, Tipo_Usuario) VALUES(@nombre_usuario, @clave_usuario, @tipo_usuario)";
-                    db.Execute(query, usuario);
-                    return true;
-                }
-            }
 
         }
 
-    }*/
+        public Usuario GetUsuarioPorGoogleSubject(string googleSubject)
+        {
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                Usuario usuarios = db.Query<Usuario>("SELECT * FROM Usuarios WHERE GoogleIdentificador = '" + googleSubject.ToString() + "'").FirstOrDefault();
+
+                return usuarios;
+            }
+        }
+        public int AgregarNuevoUsuario(Usuario usuario)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string query = "INSERT INTO Usuarios (GoogleIdentificador, Nombre, Apellido, NombreCompleto,  Email) VALUES ( @GoogleIdentificador, @Nombre, @Apellido, @NombreCompleto, @Email); SELECT CAST(SCOPE_IDENTITY() AS int)";
+                int idUsuario = (int)db.ExecuteScalar(query, usuario);
+
+
+                return idUsuario;
+            }
+        }
+
+    }
 }

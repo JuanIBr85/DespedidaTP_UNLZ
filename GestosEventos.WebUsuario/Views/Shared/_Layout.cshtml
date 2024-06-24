@@ -23,14 +23,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a>
                         </li>
                     </ul>
                 </div>
             </div>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <span>Bienvenido @User.Identity.Name </span>
+                </div>
+            }
+        
+        
+        
         </nav>
     </header>
     <div class="container">
