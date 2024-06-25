@@ -52,9 +52,7 @@
             margin-top: 10px; /* Space between buttons */
         }
 
-            .google-btn img, .logout-btn img {
-                width: 20px;
-                height: 20px;
+            .google-btn svg, .logout-btn svg {
                 margin-right: 10px;
             }
 
@@ -70,27 +68,28 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <img src="~/img/logo-solterout.png" alt="Logo">
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="welcome-message">
-                <span>Bienvenido, @User.Identity.Name</span>
-            </div>
-            <a class="logout-btn" asp-controller="Login" asp-action="Logout">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Icon_SignOut.svg/512px-Icon_SignOut.svg.png" alt="Logout Icon">
-                Cerrar sesión
-            </a>
-        }
-        else
-        {
-            <a class="google-btn" asp-controller="Login" asp-action="Login">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google Logo">
-                Iniciar sesión con Google
-            </a>
-        }
-    </div>
+    <section>
+        <div class="login-container">
+            <p>Iniciar sesión</p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="welcome-message">
+                    <span>Bienvenido, @User.Identity.Name</span>
+                </div>
+                <a class="logout-btn" asp-controller="Login" asp-action="Logout">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Icon_SignOut.svg/512px-Icon_SignOut.svg.png" alt="Logout Icon">
+                    Cerrar sesión
+                </a>
+            }
+            else
+            {
+                <a class="google-btn" asp-controller="Login" asp-action="Login">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                        <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z" />
+                    </svg> Iniciar sesión con Google
+                </a>
+            }
+        </div>
+    </section>
 </body>
 </html>
-

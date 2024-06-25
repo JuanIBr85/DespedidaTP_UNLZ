@@ -4,88 +4,153 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    #crear_evento{
+        width:13rem;
+    }
+    #crear_evento a {
+        display: flex;
+        align-items: center;
+        background-color: #047A5A;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
 
-<h1>Index</h1>
+        #crear_evento a:hover {
+            background-color: #074233;
+        }
+
+        #crear_evento a svg {
+            margin-right: 10px;
+        }
+
+    .table-wrapper {
+        overflow: hidden;
+        border-radius: 5px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    table.table th, table.table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    table.table th {
+        background-color: #f8f9fa;
+    }
+
+    table.table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Opcional: si necesitas que el border-radius también se aplique a las celdas */
+    .table th:first-child, .table td:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .table th:last-child, .table td:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+</style>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <div id="crear_evento">
+        <a asp-action="Create">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+            </svg>
+            Crear nuevo evento
+        </a>
+    </div>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-           @*<th>
+<div class="table-wrapper">
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th>
                 @Html.DisplayNameFor(model => model.IdEvento)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.NombreEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadPersonas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombrePersonaAgasajada)
-            </th>
-           @* <th>
+                </th>*@
+                <th>
+                    <p>Nombre del evento</p>
+                </th>
+                <th>
+                    <p>Fecha del evento</p>
+                </th>
+                <th>
+                    <p>Cantidad de personas</p>
+                </th>
+                <th>
+                    <p>Tipo de evento</p>
+                </th>
+                <th>
+                    <p>Nombre persona agasajada</p>
+                </th>
+                @* <th>
                 @Html.DisplayNameFor(model => model.IdTipoEvento)
-            </th>
-            <th>
+                </th>
+                <th>
                 @Html.DisplayNameFor(model => model.IdPersonaAgasajada)
-            </th>
-            <th>
+                </th>
+                <th>
                 @Html.DisplayNameFor(model => model.IdUsuario)
-            </th>
-            <th>
+                </th>
+                <th>
                 @Html.DisplayNameFor(model => model.Borrado)
-            </th>*@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            @*<td>
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
                 @Html.DisplayFor(modelItem => item.IdEvento)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreEvento)
-             </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.FechaEvento)
-           </td>
-           <td>
-               @Html.DisplayFor(modelItem => item.CantidadPersonas)
-            </td>
-              <td>
-                   @Html.DisplayFor(modelItem => item.TipoEvento)
-              </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombrePersonaAgasajada)
-                </td>
-            @*<td>
+                </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreEvento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaEvento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CantidadPersonas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoEvento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombrePersonaAgasajada)
+                    </td>
+                    @*<td>
                 @Html.DisplayFor(modelItem => item.IdTipoEvento)
-            </td>
-            <td>
+                </td>
+                <td>
                 @Html.DisplayFor(modelItem => item.IdPersonaAgasajada)
-            </td>
-            <td>
+                </td>
+                <td>
                 @Html.DisplayFor(modelItem => item.IdUsuario)
-            </td>
+                </td>
 
-            <td>
+                <td>
                 @Html.DisplayFor(modelItem => item.Borrado)
-            </td>*@
-            <td>
-               @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
-                @Html.ActionLink("Details", "Details", new {  id=item.IdEvento })
-               @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </td>*@
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                        @Html.ActionLink("Detalles", "Details", new { id = item.IdEvento })
+                        @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
