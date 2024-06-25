@@ -1,0 +1,29 @@
+[33mcommit 3f5902793c9dbfc473e1238bdcfd7edad1eba1b3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Acosta <cristian.acosta01@icloud.com>
+Date:   Tue Jun 25 20:35:26 2024 -0300
+
+    cambios menores html
+
+[33mcommit c4f0773d0a81eca63c9bb3c99339198746d6d887[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Acosta <cristian.acosta01@icloud.com>
+Date:   Tue Jun 25 01:54:02 2024 -0300
+
+    cambios css
+
+[33mcommit a27a9ef337123f3e90d94da703944fc23eb5f00d[m
+Author: JuanIBr85 <juanignaciobauer85@gmail.com>
+Date:   Sun Jun 23 23:09:51 2024 -0300
+
+    Agrego archivo appsetting.json sin googlekeys
+
+[33mcommit 63d0f4ff42b2f33105f208209a00d574853124f9[m
+Author: JuanIBr85 <juanignaciobauer85@gmail.com>
+Date:   Sun Jun 23 22:56:18 2024 -0300
+
+    Cambios significativos, login google, aprobar/ rechazar evento, carga eventoModel, vista detalle, seleccion de servicios
+
+[33mcommit 7ad777720eb3bb8db199b77fb81c65909d0f2d3f[m
+Author: JuanIBr85 <juanignaciobauer85@gmail.com>
+Date:   Fri Jun 21 19:26:37 2024 -0300
+
+    Initial commit

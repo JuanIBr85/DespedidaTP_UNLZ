@@ -3,10 +3,12 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var fechaActual = DateTime.Now.ToString("yyyy-MM-dd");
 }
 
-<h1>Crear Evento</h1>
+<h1>Create</h1>
 
+<h4>EventoModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,7 +17,7 @@
             <h2>Crear un nuevo evento</h2>
 
             <div class="form-group">
-                <input asp-for="IdEvento" class="form-control" type = "hidden" value="0"/>
+                <input asp-for="IdEvento" class="form-control" type="hidden" value="0" />
                 <span asp-validation-for="IdEvento" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,10 +35,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="FechaEvento" class="control-label"></label>
-                <input asp-for="FechaEvento" class="form-control" />
+                <input asp-for="FechaEvento" class="form-control" type="date" value="@fechaActual" />
                 <span asp-validation-for="FechaEvento" class="text-danger"></span>
-                <!-- <label for="FechaEvento">Fecha del Evento:</label>
-                <input type="date" id="FechaEvento" name="FechaEvento"  required><br> -->
             </div>
             <div class="form-group">
                 <label asp-for="CantidadPersonas" class="control-label"></label>
@@ -45,7 +45,7 @@
             </div><br />
             <div class="form-group">
                 <label asp-for="IdTipoEvento" class="control-label"></label>
-                <select asp-for="IdTipoEvento">
+                <select asp-for="IdTipoEvento" class="form-control">
                     <option value="1">Despedida de solteros</option>
                     <option value="2">Despedida de solteras</option>
                 </select>
@@ -137,18 +137,19 @@
                 </tbody>
             </table><br />
 
-
-            <div id="create_event">
-                <input type="submit" value="Crear" class="" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Volver a la lista</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
