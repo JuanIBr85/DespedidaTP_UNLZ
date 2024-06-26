@@ -5,16 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var fechaActual = DateTime.Now.ToString("yyyy-MM-dd");
 }
+<style>
 
-<h1>Create</h1>
+.create_servicios_tabla td{
+    padding-right: 10px;
+}
+.create_servicios_tabla_precio p{
+    background-color: rgb(255,193,7);
+    margin:1px;
+        text-align:center;
+    border-radius:5px;
+    color:rgb(52,58,64);
 
-<h4>EventoModel</h4>
-<hr />
+}
+</style>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <h2>Crear un nuevo evento</h2>
+            <h2>Crear un nuevo evento:</h2>
 
             <div class="form-group">
                 <input asp-for="IdEvento" class="form-control" type="hidden" value="0" />
@@ -51,7 +61,8 @@
                 </select>
                 <span asp-validation-for="IdTipoEvento" class="text-danger"></span>
             </div><br />
-            <h3>Datos de la persona agasajada</h3>
+            
+            <h3>Datos de la persona agasajada:</h3>
             <div class="form-group">
                 <input asp-for="IdPersona" class="form-control" type="hidden" value="0" />
                 <span asp-validation-for="IdPersona" class="text-danger"></span>
@@ -107,7 +118,9 @@
                     <input asp-for="IdEstadoEvento" class="form-control" type="hidden" value="1" />
                 </label>
             </div><br />
-            <h2>Servicios a contratar</h2>
+            
+
+            <h2>Servicios a contratar:</h2>
             <table>
 
                 <thead>
@@ -119,33 +132,31 @@
 
                     @foreach (var servicios in Model.ListaDeServiciosDisponibles)
                     {
-
-                        <tr>
+                        <tr class="create_servicios_tabla">
                             <td>
-
                                 <input type="checkbox" name="ServiciosVM" value="@servicios.IdServicio" />
                             </td>
-                            <td>
+                            <td class="create_servicios_tabla_descripcion">
+                            
                                 @Html.DisplayFor(modelItem => servicios.Descripcion)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => servicios.PrecioServicio)
+                            <td class="create_servicios_tabla_precio"><p>   @Html.DisplayFor(modelItem => servicios.PrecioServicio)</p>
+                             
                             </td>
                         </tr>
-
                     }
                 </tbody>
             </table><br />
-
+<hr />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mb-5">
+    <a asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {
