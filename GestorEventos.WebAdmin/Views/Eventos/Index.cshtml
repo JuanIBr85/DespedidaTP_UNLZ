@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="container pt-5 mt-3">Listado de Eventos</h1>
 
-<table class="table">
+<table class="table table-striped table-hover table-sm">
     <thead>
-        <tr>
+        <tr class="text-center">
             <th>
                 @Html.DisplayNameFor(model => model.IdEvento)
             </th>
@@ -31,23 +31,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.NombreUsuario)
             </th>
-          @*   <th>
-                @Html.DisplayNameFor(model => model.IdTipoEvento)
+            @*   <th>
+            @Html.DisplayNameFor(model => model.IdTipoEvento)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdPersonaAgasajada)
+            @Html.DisplayNameFor(model => model.IdPersonaAgasajada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdUsuario)
+            @Html.DisplayNameFor(model => model.IdUsuario)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdEstadoEvento)
+            @Html.DisplayNameFor(model => model.IdEstadoEvento)
             </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.EstadoEvento)
             </th>
-           @* <th>
-                @Html.DisplayNameFor(model => model.Borrado)
+            @* <th>
+            @Html.DisplayNameFor(model => model.Borrado)
             </th>*@
             <th></th>
         </tr>
@@ -55,7 +55,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="text-center align-middle">
                 <td>
                     @Html.DisplayFor(modelItem => item.IdEvento)
                 </td>
@@ -77,38 +77,39 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NombreUsuario)
                 </td>
-            @*  <td>
-                    @Html.DisplayFor(modelItem => item.IdTipoEvento)
-              </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdPersonaAgasajada)
-                </td> 
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdUsuario)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdEstadoEvento)
-                </td>*@
+                @*  <td>
+            @Html.DisplayFor(modelItem => item.IdTipoEvento)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.IdPersonaAgasajada)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.IdUsuario)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.IdEstadoEvento)
+            </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.EstadoEvento)
                 </td>
-             @* <td>
-                    @Html.DisplayFor(modelItem => item.Borrado)
-                </td> *@
-                <td>
-                    <form asp-action="AprobarEvento">
-                        <input type="hidden" name="idEvento" value="@item.IdEvento" id="idEvento" />
-                        <input type="submit" value="Aprobar" />
-                    </form>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.Borrado)
+            </td> *@
+                <td class="align-middle">
+                    <div class="form-container">
+                        <form asp-action="AprobarEvento">
+                            <input type="hidden" name="idEvento" value="@item.IdEvento" id="idEvento" />
+                            <input type="submit" value="Aprobar" class="boton-aprobar" />
+                        </form>
 
 
-                    <form asp-action="RechazarEvento">
-                        <input type="hidden" name="idEvento" value="@item.IdEvento" id="idEvento" />
-                        <input type="submit" value="Rechazar" />
-                    </form>
+                        <form asp-action="RechazarEvento">
+                            <input type="hidden" name="idEvento" value="@item.IdEvento" id="idEvento" />
+                            <input type="submit" value="Rechazar" class="boton-rechazar" />
+                        </form>
+                    </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-

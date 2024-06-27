@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Listado de servicios</h1>
+<h1 class="pt-5 mt-3">Listado de servicios</h1>
 
 <p>
     <a asp-action="Create">Nuevo Servicio</a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
-        <tr>
+        <tr class="table-dark text-center">
             <th>
                 @Html.DisplayNameFor(model => model.IdServicio)
             </th>
@@ -26,23 +26,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdServicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioServicio)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new {  id=item.IdServicio }) |
-                @Html.ActionLink("Detalle", "Details", new { id = item.IdServicio }) |
-                @Html.ActionLink("Borrar", "Delete", new {  id=item.IdServicio })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdServicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioServicio)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdServicio }) |
+                    @Html.ActionLink("Detalle", "Details", new { id = item.IdServicio }) |
+                    @Html.ActionLink("Borrar", "Delete", new { id = item.IdServicio })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
