@@ -145,9 +145,7 @@
                 @Html.DisplayFor(modelItem => item.Borrado)
                 </td>*@
                     <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
-                        @Html.ActionLink("Detalles", "Details", new { id = item.IdEvento })
-                        @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        @Html.ActionLink("Detalles", "Details", new { id = item.IdEvento }, new { @class = "btn btn-info btn-sm rounded" })
                     </td>
                 </tr>
             }
