@@ -10,55 +10,25 @@
 <table class="table table-striped table-hover table-sm">
     <thead>
         <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.IdEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombrePersonaAgasajada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadPersonas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreUsuario)
-            </th>
-            @*   <th>
-            @Html.DisplayNameFor(model => model.IdTipoEvento)
-            </th>
-            <th>
-            @Html.DisplayNameFor(model => model.IdPersonaAgasajada)
-            </th>
-            <th>
-            @Html.DisplayNameFor(model => model.IdUsuario)
-            </th>
-            <th>
-            @Html.DisplayNameFor(model => model.IdEstadoEvento)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoEvento)
-            </th>
-            @* <th>
-            @Html.DisplayNameFor(model => model.Borrado)
-            </th>*@
-            <th></th>
+        <tr>
+            <th>Evento</th>
+            <th>Fecha</th>
+            <th>Cantidad de Personas</th>
+            <th>Agasajado</th>
+            <th>Solteros o Solteras?</th>
+            <th>Usuario Registrado</th>
+            <th>Estado</th>
+            <th>Modificar Estado</th>
+        </tr>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr class="text-center align-middle">
-                <td>
+                <!--<td>
                     @Html.DisplayFor(modelItem => item.IdEvento)
-                </td>
+                </td>-->
                 <td>
                     @Html.DisplayFor(modelItem => item.NombreEvento)
                 </td>

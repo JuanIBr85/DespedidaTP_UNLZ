@@ -1,23 +1,60 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: 'Roboto', sans-serif;
 }
 
+.card {
+    transition: transform 0.3s ease-in-out; /* Transición suave de transformación */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave */
+}
+
+    .card:hover {
+        transform: scale(1.05); /* Escala la tarjeta al 105% al pasar el mouse */
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Aumenta la sombra */
+    }
+
+.boton-aprobar {
+    background-color: #198754;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.boton-rechazar {
+    background-color: #dc3545;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #000000;
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.boton {
+    width: 100px;
+}

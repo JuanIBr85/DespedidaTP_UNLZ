@@ -1,16 +1,30 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-   
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 text-center">
+            <h1 class="display-4 mb-4">Despedidas de Solter@s</h1>
+            <p class="lead">Organiza una despedida de solter@s inolvidable con nosotros.</p>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <div class="mt-5">
+                    <h3>Bienvenido, @User.Identity.Name</h3>
+                    <p>¿Estás listo para organizar tu despedida?</p>
+                    <a href="@Url.Action("Create", "Eventos")" class="btn btn-primary rounded mr-2">Nuevo Evento</a>
+                    <a href="@Url.Action("Index", "Eventos")" class="btn btn-primary rounded mr-2">Ver Mis Despedidas</a>
+                    <a asp-controller="Login" asp-action="Logout" class="btn btn-outline-primary rounded">Logout</a>
+                </div>
+               
+            }
+            else
+            {
+                <p>Inicia sesión para organizar tu despedida de solter@s.</p>
+                <a asp-controller="Login" asp-action="Login" class="btn btn-primary rounded">Iniciar Sesión</a>
+            }
+        </div>
+    </div>
 </div>
-@if (Context.User.Identity.IsAuthenticated)
-{
-    <br />
-    <h3>Bienvenido @User.Identity.Name </h3>
-    <h3>@ViewData["AccessToken"]</h3>
-    <br />
 
-    <a asp-controller="Login" asp-action="Logout">Logout</a>
-}
