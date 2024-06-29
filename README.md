@@ -23,9 +23,9 @@ Método de acceso a la base de datos: hemos utilizado Dapper para hacer peticion
 Disposición de los datos a la web: se utilizo una API REST y dos Web App MVC, una destinada a los usuarios del servicio y otra para el administrador de los eventos.
 
 **Otras aclaraciones: 
-Durante el desarrollo del TP, debido a la falta de experiencia tanto en la planificación como en la organización de las tareas, tuvimos varios inconvenientes. Iniciamos el desarrollo del trabajo en un repositorio (https://github.com/Mr1000TON/ProyectoDespedidaDeSolterosUNLZ.git), donde se refleja el comienzo del proyecto y la participación del grupo, para finalizarlo en el repositorio indicado al inicio.
-Como se mencionó anteriormente, la falta de experiencia y organización nos llevó a tomar decisiones durante el desarrollo que impidieron reflejar el trabajo en equipo en un único repositorio. Por tal motivo, hacemos esta aclaración.
-
+Durante el desarrollo del TP, consideramos que, debido a la falta de experiencia tanto en la planificación como en la organización de las tareas, tuvimos varios inconvenientes. Iniciamos el desarrollo del trabajo en un repositorio (https://github.com/Mr1000TON/ProyectoDespedidaDeSolterosUNLZ.git), donde se refleja el comienzo del proyecto y la participación del grupo, luego lo continuamos y finalizamos en el repositorio indicado al inicio. En dicho repositorio no se visualiza la participación de todos los integrantes porque se tomó como insumo base el repositorio inicial para poder desarrollar el presentado aquí finalmente.
+Como se mencionó anteriormente, la falta de experiencia y organización nos llevó a tomar decisiones durante el desarrollo que impidieron reflejar el trabajo en equipo en un único repositorio. Por tal motivo, hacemos esta aclaración. 
+Valoramos el inconveniente mencionado como aprendizaje de la importancia de la organización, distribución y ejecución de tareas y administración del tiempo cuando se trabaja en grupo.
 
 
       
